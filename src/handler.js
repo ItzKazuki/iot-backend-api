@@ -4,16 +4,14 @@ import { AGAK_LEMBAP_HIGH, AGAK_LEMBAP_LOW, BERAIR, KERING_HIGH, KERING_LOW, LEM
 const updateHumadity = (req, h) => {
   /**
    * indikator kelembapan memasukan angka, untuk algoritma nya mulai dari
-   * Kering bange: 4096 --> 
+   * Kering banget: 4096 --> 
    */
-  const { indikator_kelembapan, key, } = req.payload;
+  const { indikator_kelembapan, key, kelembapan } = req.payload;
   let tingkat_kelembapan;
-  let message;
   let koneksi;
 
   if(indikator_kelembapan >= KERING_LOW && indikator_kelembapan <= KERING_HIGH) {
     tingkat_kelembapan = 'Kering';
-    message = "T";
   } else if(indikator_kelembapan >= AGAK_LEMBAP_LOW && indikator_kelembapan <= AGAK_LEMBAP_HIGH) {
     tingkat_kelembapan = 'Agak Lembab';
   } else if(indikator_kelembapan >= LEMBAP_LOW && indikator_kelembapan <= LEMBAP_HIGH) {
@@ -44,6 +42,7 @@ const updateHumadity = (req, h) => {
       ...humadity[0],
       indikator_kelembapan,
       tingkat_kelembapan,
+      kelembapan,
       koneksi,
       updated_at,
     };
@@ -51,12 +50,12 @@ const updateHumadity = (req, h) => {
     humadity.push({
       indikator_kelembapan,
       tingkat_kelembapan,
+      kelembapan,
       koneksi,
       inserted_at: updated_at,
       updated_at,
     });
   }
-
 
   return response(h, {
     status: 'success',
