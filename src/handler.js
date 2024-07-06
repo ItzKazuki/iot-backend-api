@@ -6,7 +6,7 @@ const updateHumadity = (req, h) => {
    * indikator kelembapan memasukan angka, untuk algoritma nya mulai dari
    * Kering banget: 4096 --> 
    */
-  const { indikator_kelembapan, key, kelembapan } = req.payload;
+  const { indikator_kelembapan, key, kelembapan, SSID, SSID_Stregth } = req.payload;
   let tingkat_kelembapan;
   let koneksi;
 
@@ -52,6 +52,10 @@ const updateHumadity = (req, h) => {
       tingkat_kelembapan,
       kelembapan,
       koneksi,
+      wifi: {
+        SSID,
+        SSID_Stregth
+      },
       inserted_at: updated_at,
       updated_at,
     });
